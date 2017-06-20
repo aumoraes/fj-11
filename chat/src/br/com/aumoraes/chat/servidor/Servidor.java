@@ -1,6 +1,7 @@
-package br.com.aurelio.chat.servidor;
+package br.com.aumoraes.chat.servidor;
 
 import java.io.IOException;
+
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -33,16 +34,17 @@ public class Servidor {
 			PrintStream ps = new PrintStream(cliente.getOutputStream());
 			this.clientes.add(ps);
 			
+						  
 			// cria tratador de cliente numa nova thread
 			TrataCliente tc =
 			new TrataCliente(cliente.getInputStream(), this);
-			Thread teste = new Thread(tc);
-			teste.start();
+			new Thread(tc).start();
 		}
 	}
 	public void distribuiMensagem(String msg) {
 		// envia msg para todo mundo
 		for (PrintStream cliente : this.clientes) {
+			  
 			cliente.println(msg);
 		}
 	}

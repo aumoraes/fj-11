@@ -1,9 +1,9 @@
-package br.com.aurelio.chat.servidor;
+package br.com.aumoraes.chat.servidor;
 
 import java.io.InputStream;
 import java.util.Scanner;
 
-import br.com.aurelio.chat.servidor.Servidor;
+import br.com.aumoraes.chat.servidor.Servidor;
 
 public class TrataCliente implements Runnable {
 	private InputStream cliente;

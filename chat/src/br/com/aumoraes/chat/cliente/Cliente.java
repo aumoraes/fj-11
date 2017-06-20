@@ -1,6 +1,7 @@
-package br.com.aurelio.chat.cliente;
+package br.com.aumoraes.chat.cliente;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -24,12 +25,13 @@ public class Cliente {
 	public void executa() throws UnknownHostException, IOException {
 		
 		Scanner inputName = new Scanner(System.in);
+		
+		System.out.println("Digite um nome de usuário");
 		String userName = inputName.nextLine();
 		
 		Socket cliente = new Socket(this.host, this.porta);
-		
-		
-		System.out.println("O cliente se conectou ao servidor!");
+
+		System.out.println("O cliente " + userName + " acabou de se conectar ao servidor!");
 		
 		// thread para receber mensagens do servidor
 		Recebedor r = new Recebedor(cliente.getInputStream());		
@@ -39,8 +41,11 @@ public class Cliente {
 		Scanner teclado = new Scanner(System.in);
 		PrintStream saida = new PrintStream(cliente.getOutputStream());
 		while (teclado.hasNextLine()) {
-			saida.println(userName + " says: " + teclado.nextLine());
+			
+			saida.println(userName + " says: \n" + teclado.nextLine());
+			
 		}
+		inputName.close();
 		saida.close();
 		teclado.close();
 		cliente.close();

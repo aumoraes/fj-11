@@ -1,4 +1,4 @@
-package br.com.aurelio.chat.cliente;
+package br.com.aumoraes.chat.cliente;
 
 import java.io.InputStream;
 
@@ -18,6 +18,7 @@ public class Recebedor implements Runnable{
 		while (s.hasNextLine()) {
 			System.out.println(s.nextLine());
 		}
+		s.close();
 	}
 	
 }
