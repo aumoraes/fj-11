@@ -1,24 +1,27 @@
 package br.com.aumoraes.chat.servidor;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
-import br.com.aumoraes.chat.servidor.Servidor;
-
 public class TrataCliente implements Runnable {
-	private InputStream cliente;
 	private Servidor servidor;
+	private Usuario user;
 	
-	public TrataCliente(InputStream cliente, Servidor servidor) {
-		this.cliente = cliente;
+	public TrataCliente( Servidor servidor, Usuario user ) {
 		this.servidor = servidor;
+		this.user = user;
 	}
+	
 	public void run() {
 		// quando chegar uma msg, distribui pra todos
-		Scanner s = new Scanner(this.cliente);
-		while (s.hasNextLine()) {
-			servidor.distribuiMensagem(s.nextLine());
+		try(Scanner s = new Scanner(this.user.getColetorDeMensagem())){
+			while (s.hasNextLine()) {
+				servidor.distribuiMensagem(s.nextLine());
+			}
+		} catch (Exception e) {
+			System.out.println("Alguem erro ocorreu ao inciar a thread " + e);
 		}
-		s.close();
+		// Saiu do loop, é porque desconectou...
+        servidor.remove( this.user ); // Remove da lista de clientes da classe Servidor lá trás...
+		
 	}
 }

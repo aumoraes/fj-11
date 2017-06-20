@@ -1,7 +1,6 @@
 package br.com.aumoraes.chat.servidor;
 
 import java.io.IOException;
-
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,37 +14,67 @@ public class Servidor {
 	}
 	
 	private int porta;
-	private List<PrintStream> clientes;
+	private List<Usuario> listaDeUsuarios; 
+	private int identificador = 0;
+	
 	public Servidor (int porta) {
 		this.porta = porta;
-		this.clientes = new ArrayList<PrintStream>();
+		this.listaDeUsuarios = new ArrayList<Usuario>();
 	}
+	
 	public void executa () throws IOException {
-		ServerSocket servidor = new ServerSocket(this.porta);
-		System.out.println("Porta 12345 aberta!");
-		while (true) {
-			// aceita um cliente
-			Socket cliente = servidor.accept();
-			System.out.println("Nova conexão com o cliente " +
-			cliente.getInetAddress().getHostAddress()
-			);
+		//TODO Definir porta atravez de arquivo config
+		try(ServerSocket servidor = new ServerSocket(this.porta)){		
+		
+			System.out.println("O servidor está de pé na porta: " + this.porta);
 			
-			// adiciona saida do cliente à lista
-			PrintStream ps = new PrintStream(cliente.getOutputStream());
-			this.clientes.add(ps);
-			
-						  
-			// cria tratador de cliente numa nova thread
-			TrataCliente tc =
-			new TrataCliente(cliente.getInputStream(), this);
-			new Thread(tc).start();
+			while (true) {
+				// aceita um cliente
+				Socket cliente = servidor.accept();
+				
+				Usuario user = new Usuario();
+				user.setIp( cliente.getInetAddress().getHostAddress() );
+				user.setId( identificador );
+				user.setNome( "cliente " + identificador );
+				user.setColetorDeMensagem( cliente.getInputStream() );
+				System.out.println("Nova conexão com o cliente id: " +	user.getId() + ", ip: " + user.getIp() + ", nome: " + user.getNome() );
+				
+				
+				// Cria uma referencia a um objeto que ira imprimir a saido do cliente no console 
+				PrintStream ps = new PrintStream(cliente.getOutputStream());
+				user.setMensageiro( ps );
+				// adiciona saida do cliente à lista
+				this.listaDeUsuarios.add( user );
+				
+							  
+				// cria tratador de cliente numa nova thread
+				TrataCliente tc = new TrataCliente(this, user);
+				new Thread(tc).start();
+				identificador++;
+			}
+		} catch (Exception e) {
+			System.out.println("O Servidor está parado, motivo: " + e);
 		}
 	}
+	public void remove( Usuario user ) {
+		distribuiMensagem("Info: O usuario " + user.getNome() + " se desconectou");
+		this.listaDeUsuarios.remove( user.getId() );
+		identificador--;
+		System.out.println("cliente se desconectou " + user.toString());
+	}
+	
 	public void distribuiMensagem(String msg) {
 		// envia msg para todo mundo
-		for (PrintStream cliente : this.clientes) {
-			  
-			cliente.println(msg);
+		for (Usuario user : this.listaDeUsuarios) {
+			PrintStream mensagem = user.getMensageiro();
+			mensagem.println(msg);
 		}
+	}
+	
+
+	public void mostraCliente(){
+		for (Usuario user : this.listaDeUsuarios) {
+			System.out.println( user.toString() );
+		}		
 	}
 }

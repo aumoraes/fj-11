@@ -1,7 +1,6 @@
 package br.com.aumoraes.chat.cliente;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 
 public class Cliente {
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		// dispara cliente
+		//TODO Definir servidor e porta atravez de arquivo config
 		new Cliente("10.110.60.86", 12345).executa();		
 	}
 	
@@ -28,6 +27,8 @@ public class Cliente {
 		
 		System.out.println("Digite um nome de usuário");
 		String userName = inputName.nextLine();
+		
+		
 		
 		Socket cliente = new Socket(this.host, this.porta);
 
