@@ -4,51 +4,66 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import br.com.aumoraes.chat.ApplicationProperties;
 
 
 public class Cliente {
+	private static ApplicationProperties properties;
+	
+	
 	public static void main(String[] args) throws UnknownHostException, IOException {
-		//TODO Definir servidor e porta atravez de arquivo config
-		new Cliente("10.110.60.86", 12345).executa();		
+		
+		properties = ApplicationProperties.getInstance();
+		
+		new Cliente( properties.getServer(), properties.getPort()).executa();		
 	}
 	
 	private String host;
 	private int porta;
+	private boolean connection = false;
 	
 	public Cliente (String host, int porta) {
 		this.host = host;
 		this.porta = porta;
 	}
 	
-	public void executa() throws UnknownHostException, IOException {
-		
-		Scanner inputName = new Scanner(System.in);
-		
-		System.out.println("Digite um nome de usuário");
-		String userName = inputName.nextLine();
-		
-		
-		
-		Socket cliente = new Socket(this.host, this.porta);
+	public void executa(){
 
-		System.out.println("O cliente " + userName + " acabou de se conectar ao servidor!");
+		String userName = "";
 		
-		// thread para receber mensagens do servidor
-		Recebedor r = new Recebedor(cliente.getInputStream());		
-		new Thread(r).start();
+		try(Socket cliente = new Socket(this.host, this.porta);
+			PrintStream saida = new PrintStream(cliente.getOutputStream());
+			Scanner teclado = new Scanner(System.in) ){
+			
+			
+			Recebedor r = new Recebedor(cliente.getInputStream(), this, properties);		
+			new Thread(r).start();
 		
-		// le msgs do teclado e manda pro servidor
-		Scanner teclado = new Scanner(System.in);
-		PrintStream saida = new PrintStream(cliente.getOutputStream());
-		while (teclado.hasNextLine()) {
+			userName = teclado.nextLine();
+			saida.println( userName );	
+						
 			
-			saida.println(userName + " says: \n" + teclado.nextLine());
-			
+			while (teclado.hasNextLine()) {
+				if( ! connection ){
+					userName = teclado.nextLine();
+					saida.println( userName );
+				}else{
+					saida.println(userName + " says: \n" + teclado.nextLine());	
+				}			
+			}
+
+		} catch (IOException e) {
+			System.out.println(e + "No momento não há um servidor disponível, tente mais tarde.");
+		} catch (NoSuchElementException ex){
+			System.out.println("");
 		}
-		inputName.close();
-		saida.close();
-		teclado.close();
-		cliente.close();
+		
+	}
+	
+	public void setConnection(){
+		this.connection = true;
 	}
 }
