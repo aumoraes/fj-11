@@ -1,4 +1,4 @@
-package br.com.aurelio.empresa;
+package br.com.aumoraes.empresa;
 
 import java.util.HashMap;
 import java.util.Map;

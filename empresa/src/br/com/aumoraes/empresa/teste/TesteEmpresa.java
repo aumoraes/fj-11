@@ -1,12 +1,12 @@
-package br.com.aurelio.empresa.teste;
+package br.com.aumoraes.empresa.teste;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.aurelio.empresa.Empresa;
-import br.com.aurelio.empresa.Funcionario;
-import br.com.aurelio.empresa.Gerente;
+import br.com.aumoraes.empresa.Empresa;
+import br.com.aumoraes.empresa.Funcionario;
+import br.com.aumoraes.empresa.Gerente;
 
 public class TesteEmpresa {
 	

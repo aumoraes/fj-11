@@ -1,4 +1,4 @@
-package br.com.aurelio.empresa;
+package br.com.aumoraes.empresa;
 
 public class Gerente extends Funcionario{
 	

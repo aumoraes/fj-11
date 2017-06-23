@@ -1,7 +1,7 @@
-package br.com.aurelio.empresa.teste;
+package br.com.aumoraes.empresa.teste;
 
-import br.com.aurelio.empresa.Data;
-import br.com.aurelio.empresa.Gerente;
+import br.com.aumoraes.empresa.Data;
+import br.com.aumoraes.empresa.Gerente;
 
 public class TesteFuncionario {
 	public static void main(String[] args) {

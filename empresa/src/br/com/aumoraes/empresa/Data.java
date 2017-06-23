@@ -1,4 +1,4 @@
-package br.com.aurelio.empresa;
+package br.com.aumoraes.empresa;
 
 public class Data {
 	public int dia;
