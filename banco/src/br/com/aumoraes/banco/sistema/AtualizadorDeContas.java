@@ -1,6 +1,6 @@
-package br.com.aurelio.banco.sistema;
+package br.com.aumoraes.banco.sistema;
 
-import br.com.aurelio.banco.contas.ContaInterface;
+import br.com.aumoraes.banco.contas.ContaInterface;
 
 public class AtualizadorDeContas {
 

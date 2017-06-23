@@ -1,11 +1,11 @@
-package br.com.aurelio.banco;
+package br.com.aumoraes.banco.testes;
 
-import br.com.aurelio.banco.contas.Cliente;
-import br.com.aurelio.banco.contas.ContaCorrente;
-import br.com.aurelio.banco.contas.ContaInterface;
-import br.com.aurelio.banco.contas.ContaPoupanca;
-import br.com.aurelio.banco.contas.PessoaFisica;
-import br.com.aurelio.banco.contas.ValorInvalidoException;
+import br.com.aumoraes.banco.contas.Cliente;
+import br.com.aumoraes.banco.contas.ContaCorrente;
+import br.com.aumoraes.banco.contas.ContaInterface;
+import br.com.aumoraes.banco.contas.ContaPoupanca;
+import br.com.aumoraes.banco.contas.PessoaFisica;
+import br.com.aumoraes.banco.contas.ValorInvalidoException;
 
 public class TestaContas {
 	public static void main(String[] args) {

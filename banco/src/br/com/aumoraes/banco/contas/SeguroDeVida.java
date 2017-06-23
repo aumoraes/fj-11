@@ -1,4 +1,4 @@
-package br.com.aurelio.banco.contas;
+package br.com.aumoraes.banco.contas;
 
 public class SeguroDeVida implements Tributavel{
 

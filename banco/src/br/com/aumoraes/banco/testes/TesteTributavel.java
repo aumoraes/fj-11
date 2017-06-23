@@ -1,14 +1,14 @@
 /**
  * 
  */
-package br.com.aurelio.banco;
+package br.com.aumoraes.banco.testes;
 
-import br.com.aurelio.banco.contas.Cliente;
-import br.com.aurelio.banco.contas.ContaCorrente;
-import br.com.aurelio.banco.contas.ContaTributavel;
-import br.com.aurelio.banco.contas.PessoaFisica;
-import br.com.aurelio.banco.contas.Tributavel;
-import br.com.aurelio.banco.contas.ValorInvalidoException;
+import br.com.aumoraes.banco.contas.Cliente;
+import br.com.aumoraes.banco.contas.ContaCorrente;
+import br.com.aumoraes.banco.contas.ContaTributavel;
+import br.com.aumoraes.banco.contas.PessoaFisica;
+import br.com.aumoraes.banco.contas.Tributavel;
+import br.com.aumoraes.banco.contas.ValorInvalidoException;
 
 /**
  * @author aumoraes

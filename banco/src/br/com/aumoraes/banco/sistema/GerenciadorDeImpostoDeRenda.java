@@ -1,6 +1,6 @@
-package br.com.aurelio.banco.sistema;
+package br.com.aumoraes.banco.sistema;
 
-import br.com.aurelio.banco.contas.Tributavel;
+import br.com.aumoraes.banco.contas.Tributavel;
 
 public class GerenciadorDeImpostoDeRenda {
 	

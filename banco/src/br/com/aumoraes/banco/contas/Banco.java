@@ -1,4 +1,4 @@
-package br.com.aurelio.banco.contas;
+package br.com.aumoraes.banco.contas;
 
 import java.util.ArrayList;
 import java.util.List;

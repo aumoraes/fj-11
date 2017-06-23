@@ -1,7 +1,12 @@
-package br.com.aurelio.banco;
+package br.com.aumoraes.banco.testes;
 
-import br.com.aurelio.banco.contas.*;
-import br.com.aurelio.banco.sistema.AtualizadorDeContas;
+import br.com.aumoraes.banco.contas.Banco;
+import br.com.aumoraes.banco.contas.Cliente;
+import br.com.aumoraes.banco.contas.ContaCorrente;
+import br.com.aumoraes.banco.contas.ContaInterface;
+import br.com.aumoraes.banco.contas.ContaPoupanca;
+import br.com.aumoraes.banco.contas.PessoaFisica;
+import br.com.aumoraes.banco.sistema.AtualizadorDeContas;
 
 public class TesteBanco {
 	public static void main(String[] args) {
